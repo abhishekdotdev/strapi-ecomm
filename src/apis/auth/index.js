@@ -14,10 +14,10 @@ export const signUpRequest = async ({ email, password, username }) => {
   }
 };
 
-export const signInRequest = async ({ identifier, password }) => {
+export const signInRequest = async ({ email, password }) => {
   try {
-    const response = await axios.post('/api/auth/local', {
-      identifier,
+    const response = await axios.post('/auth/local', {
+      identifier: email,
       password,
     });
     return response;
