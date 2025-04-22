@@ -20,9 +20,10 @@ export const signInRequest = async ({ email, password }) => {
       identifier: email,
       password,
     });
+    console.log('RESPONSE', response);
     return response;
   } catch (error) {
     console.error(error);
-    throw error.response;
+    throw error.response.data;
   }
 };

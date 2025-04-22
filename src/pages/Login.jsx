@@ -3,8 +3,11 @@ import LoginPage from '../components/Signin';
 import { signInRequest } from '../apis/auth';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
+  const { setAuth } = useAuth();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -30,6 +33,14 @@ const Login = () => {
       const response = await signInRequest({
         email,
         password,
+      });
+
+      localStorage.setItem('user', JSON.stringify(response?.data?.user));
+      localStorage.setItem('token', response.data?.jwt);
+      setAuth({
+        user: response?.data?.user,
+        token: response?.data?.jwt,
+        loading: false,
       });
       console.log('Response:', response.data);
 
